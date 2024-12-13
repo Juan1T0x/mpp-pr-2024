@@ -1,0 +1,4 @@
+Execution Time: 0.00 sec
+
+Solution: 20 37 60 130 301 364 397 398 406 469 
+Distance: 3426.19

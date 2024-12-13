@@ -1,0 +1,8 @@
+El análisis muestra lo siguiente:
+
+    m_rate = 0.05: Es el mejor en 5 casos.
+    m_rate = 0.15: Es el mejor en 1 caso.
+    m_rate = 0.10: Es el mejor en 1 caso.
+    m_rate = 0.20: No es el mejor en ningún caso.
+
+Esto refuerza la conclusión de que m_rate = 0.05 es el valor más efectivo en la mayoría de los escenarios para maximizar la distancia. ​
