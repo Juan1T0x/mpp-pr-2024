@@ -27,11 +27,25 @@ unsigned int seed;
 void mezclar(Individuo **poblacion, int izq, int med, int der);
 void mergeSort(Individuo **poblacion, int izq, int der);
 
+/**
+ * Función que genera un número entero aleatorio entre 0 y n-1.
+ *
+ * @param n Límite superior exclusivo del número aleatorio.
+ * @return Un número entero aleatorio entre 0 y n-1.
+ */
 int aleatorio(int n)
 {
 	return (rand_r(&seed) % n);
 }
 
+/**
+ * Función que verifica si un elemento está presente en un array hasta una posición dada.
+ *
+ * @param array El array en el que buscar.
+ * @param end Índice hasta donde buscar en el array (exclusivo).
+ * @param element El elemento a buscar en el array.
+ * @return 1 si el elemento se encuentra en el array, 0 en caso contrario.
+ */
 int find_element(int *array, int end, int element)
 {
 	int i = 0;
@@ -47,6 +61,13 @@ int find_element(int *array, int end, int element)
 	return found;
 }
 
+/**
+ * Función que crea un individuo (solución) generando un array de 'm' enteros únicos aleatorios entre 0 y n-1.
+ *
+ * @param n Número total de elementos posibles.
+ * @param m Tamaño del individuo (número de elementos a seleccionar).
+ * @return Un puntero al array de enteros que representa al individuo.
+ */
 int *crear_individuo(int n, int m)
 {
 	int i = 0, value;
@@ -65,11 +86,25 @@ int *crear_individuo(int n, int m)
 	return individuo;
 }
 
+/**
+ * Función de comparación para qsort, utilizada para ordenar enteros en orden ascendente.
+ *
+ * @param a Puntero al primer elemento a comparar.
+ * @param b Puntero al segundo elemento a comparar.
+ * @return Un valor negativo si *a < *b, positivo si *a > *b, 0 si son iguales.
+ */
 int comp_array_int(const void *a, const void *b)
 {
 	return (*(int *)a - *(int *)b);
 }
 
+/**
+ * Función de comparación para qsort, utilizada para ordenar individuos por su valor de fitness en orden descendente.
+ *
+ * @param a Puntero al primer individuo a comparar.
+ * @param b Puntero al segundo individuo a comparar.
+ * @return -1 si el fitness de 'a' es mayor que el de 'b', 1 si es menor, 0 si son iguales.
+ */
 int comp_fitness(const void *a, const void *b)
 {
 	double fitness_a = (*(Individuo **)a)->fitness;
@@ -82,6 +117,17 @@ int comp_fitness(const void *a, const void *b)
 		return 0;
 }
 
+/**
+ * Función principal que aplica la metaheurística (algoritmo genético) para resolver el problema.
+ *
+ * @param d Puntero al array de distancias compactado.
+ * @param n Número total de elementos posibles.
+ * @param m Tamaño del subconjunto a seleccionar.
+ * @param n_gen Número de generaciones a simular.
+ * @param tam_pob Tamaño de la población.
+ * @param sol Puntero al array donde se almacenará la mejor solución encontrada.
+ * @return El valor de fitness de la mejor solución encontrada.
+ */
 double aplicar_mh(const double *d, int n, int m, int n_gen, int tam_pob, int *sol)
 {
 	int i, g, mutation_start;
@@ -173,6 +219,16 @@ double aplicar_mh(const double *d, int n, int m, int n_gen, int tam_pob, int *so
 	return value;
 }
 
+/**
+ * Función que realiza el cruce (crossover) entre dos padres para generar dos hijos.
+ *
+ * @param padre1 Puntero al primer padre.
+ * @param padre2 Puntero al segundo padre.
+ * @param hijo1 Puntero al primer hijo resultante.
+ * @param hijo2 Puntero al segundo hijo resultante.
+ * @param n Número total de elementos posibles.
+ * @param m Tamaño de los individuos (número de genes).
+ */
 void cruzar(Individuo *padre1, Individuo *padre2, Individuo *hijo1, Individuo *hijo2, int n, int m)
 {
 	int punto = aleatorio(m - 1) + 1;
@@ -220,6 +276,13 @@ void cruzar(Individuo *padre1, Individuo *padre2, Individuo *hijo1, Individuo *h
 	}
 }
 
+/**
+ * Función que aplica mutación a un individuo, modificando algunos de sus genes.
+ *
+ * @param actual Puntero al individuo a mutar.
+ * @param n Número total de elementos posibles.
+ * @param m Tamaño del individuo (número de genes).
+ */
 void mutar(Individuo *actual, int n, int m)
 {
 	int num_mutations = (int)(MUTATION_RATE * m);
@@ -239,6 +302,15 @@ void mutar(Individuo *actual, int n, int m)
 	}
 }
 
+/**
+ * Función que calcula la distancia entre dos elementos i y j utilizando el array de distancias compactado.
+ *
+ * @param d Puntero al array de distancias compactado.
+ * @param i Índice del primer elemento.
+ * @param j Índice del segundo elemento.
+ * @param n Número total de elementos posibles.
+ * @return La distancia entre los elementos i y j.
+ */
 double distancia_ij(const double *d, int i, int j, int n)
 {
 	if (i == j)
@@ -253,6 +325,14 @@ double distancia_ij(const double *d, int i, int j, int n)
 	return d[index];
 }
 
+/**
+ * Función que calcula el fitness de un individuo sumando las distancias entre cada par de sus genes.
+ *
+ * @param d Puntero al array de distancias compactado.
+ * @param individuo Puntero al individuo cuyo fitness se va a calcular.
+ * @param n Número total de elementos posibles.
+ * @param m Tamaño del individuo (número de genes).
+ */
 void fitness(const double *d, Individuo *individuo, int n, int m)
 {
 	int *elements = individuo->array_int;
