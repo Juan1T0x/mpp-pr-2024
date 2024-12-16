@@ -1,4 +1,0 @@
-Execution Time: 0.00 sec
-
-Solution: 1 2 60 61 65 69 71 72 77 93 
-Distance: 3234.76
