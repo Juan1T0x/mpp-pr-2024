@@ -21,7 +21,7 @@ while read line ; do
 		# Ejecutar para cada número de procesos
 		for np in 2 4 8; do
 			# Ejecutar para diferentes valores de NGM
-			for ngm in 1 5 10 20; do
+			for ngm in 1 5; do
 				echo -e
 				echo -n "Executing with: "
 				echo -e "N = $n, M = $m, N_GEN = $gen, TAM_POB = $tam, NP = $np, NGM = $ngm"
