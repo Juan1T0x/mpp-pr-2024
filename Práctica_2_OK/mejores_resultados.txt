@@ -1,0 +1,14 @@
+# Mejores resultados: n m n_gen tam_pob duplas{np,ngm}
+200 50 100 20 -> valores cercanos a 0 imposible determinar
+500 150 200 50 -> {8,1}
+800 200 300 70 -> {8,1}, {4,1}
+1000 300 400 100 -> {4,1}
+1200 400 500 120 -> {2,1}
+1400 500 600 150 -> {4,1}
+1600 600 700 180 -> {4,1}, {8,1}
+
+Vemos que los valores adecuados, que consiguen mejorar el tiempo de ejecución son:
+NP: 2,4,8
+NGM: 1,5
+
+No probaremos con mas valores porque los tiempos se van muy altos

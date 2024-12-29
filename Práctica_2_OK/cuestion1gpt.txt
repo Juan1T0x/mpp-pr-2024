@@ -1,0 +1,109 @@
+CUESTIÓN 1a: Pasos para paralelizar el algoritmo con MPI
+
+El modelo de islas para el algoritmo evolutivo requiere que cada proceso trabaje con una subpoblación (isla), realice computación localmente y participe en migraciones de individuos en intervalos específicos. Los pasos clave son:
+1. Inicialización
+
+    Configurar MPI:
+        Llamar a MPI_Init.
+        Obtener el rango del proceso (MPI_Comm_rank) y el número de procesos (MPI_Comm_size).
+
+    Leer y distribuir datos iniciales (en el proceso maestro):
+        Leer los parámetros de entrada (n, m, n_gen, tam_pob, NGM, NEM).
+        Generar la matriz de distancias y la población inicial.
+        Dividir la población inicial entre los procesos.
+        Enviar las subpoblaciones y la matriz de distancias a los procesos trabajadores.
+
+2. Computación local en paralelo
+
+    Cada proceso ejecuta el algoritmo evolutivo sobre su subpoblación durante NGM generaciones.
+    Al finalizar cada intervalo de NGM, se realiza una migración de individuos.
+
+3. Migración de individuos
+
+    En procesos trabajadores:
+        Seleccionar los NEM mejores individuos y enviarlos al proceso maestro.
+    En el proceso maestro:
+        Recibir individuos de todos los procesos.
+        Mezclar y ordenar la población combinada.
+        Seleccionar y redistribuir los mejores individuos a cada proceso.
+
+4. Finalización
+
+    Cada proceso envía su mejor solución al maestro.
+    El maestro selecciona la solución global óptima.
+    Finalizar el entorno MPI con MPI_Finalize.
+
+Pseudocódigo del patrón de computación y comunicación
+
+// Inicialización de MPI
+MPI_Init
+rank ← MPI_Comm_rank
+size ← MPI_Comm_size
+
+SI rank == 0 ENTONCES
+    Leer parámetros de entrada
+    Generar matriz de distancias y población inicial
+    Dividir población en subpoblaciones
+    Enviar subpoblaciones y matriz a cada proceso
+FIN SI
+
+Recibir subpoblación y matriz
+
+PARA generaciones = 1 HASTA n_gen HACER
+    Realizar evolución local en subpoblación
+
+    SI generaciones % NGM == 0 ENTONCES
+        // Migración
+        Enviar mejores NEM individuos al maestro
+        SI rank == 0 ENTONCES
+            Recibir individuos de todos los procesos
+            Mezclar y ordenar población
+            Redistribuir mejores individuos
+        FIN SI
+        Recibir nuevos individuos
+    FIN SI
+FIN PARA
+
+Enviar mejor solución al maestro
+
+SI rank == 0 ENTONCES
+    Recibir soluciones de todos los procesos
+    Seleccionar solución global óptima
+    Imprimir resultados
+FIN SI
+
+MPI_Finalize
+
+CUESTIÓN 1b: Resolución del problema de no contigüidad
+
+Actualmente, la población está definida como un array de punteros a Individuo, lo que provoca problemas al utilizar primitivas MPI (requieren datos contiguos en memoria). Existen dos soluciones:
+1. Cambiar de Individuo* a un array contiguo
+
+    Redefinir la estructura de la población para que sea un array de Individuo:
+
+Individuo poblacion[tam_pob];
+
+Cambiar array_int a un array estático dentro de Individuo:
+
+    typedef struct {
+        int array_int[MAX_SIZE];
+        double fitness;
+    } Individuo;
+
+    Ventajas:
+        Simplifica el código.
+        Asegura compatibilidad con MPI.
+
+2. Reservar memoria auxiliar contigua
+
+    Copiar los datos de la población a un buffer contiguo antes de enviarlos con MPI:
+
+Individuo *buffer = malloc(tam_pob * sizeof(Individuo));
+memcpy(buffer, poblacion, tam_pob * sizeof(Individuo));
+MPI_Send(buffer, tam_pob, individuo_type, destino, tag, MPI_COMM_WORLD);
+free(buffer);
+
+Ventajas:
+
+    Mantiene la estructura actual del código.
+    Flexible para estructuras más complejas.
