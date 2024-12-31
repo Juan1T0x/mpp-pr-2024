@@ -1,0 +1,2 @@
+Tiempo FOR_INI con 10 hilos: 4.608336 seg
+Execution Time: 4.61 sec
