@@ -29,14 +29,14 @@ sizes = [
 ]
 
 # Leer los datos de los tres archivos para "pinned memory"
-bandwidth_htod_pinned = read_bandwidth_data('HostADispositivo_pinned.txt')
-bandwidth_dtod_pinned = read_bandwidth_data('DentroDelDispositivo_pinned.txt')
-bandwidth_dtoh_pinned = read_bandwidth_data('DispositivoAHost_pinned.txt')
+bandwidth_htod_pinned = read_bandwidth_data('HTOD_pinned.txt')
+bandwidth_dtod_pinned = read_bandwidth_data('DTOD.txt')
+bandwidth_dtoh_pinned = read_bandwidth_data('DTOH_pinned.txt')
 
 # Leer los datos de los tres archivos para "pageable memory"
-bandwidth_htod_pageable = read_bandwidth_data('HostADispositivo_pageable.txt')
-bandwidth_dtod_pageable = read_bandwidth_data('DentroDelDispositivo_pageable.txt')
-bandwidth_dtoh_pageable = read_bandwidth_data('DispositivoAHost_pageable.txt')
+bandwidth_htod_pageable = read_bandwidth_data('HTOD__pageable.txt')
+bandwidth_dtod_pageable = read_bandwidth_data('DTOD_pageable.txt')
+bandwidth_dtoh_pageable = read_bandwidth_data('DTOH_pageable.txt')
 
 # Calcular la media del ancho de banda para cada tipo de transferencia
 mean_htod_pageable = sum(bandwidth_htod_pageable) / len(bandwidth_htod_pageable)

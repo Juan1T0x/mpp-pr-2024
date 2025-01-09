@@ -1,0 +1,123 @@
+nvcc -m64 -I/usr/local/cuda/include -I../Common -Wno-deprecated-gpu-targets -o vectorAdd.o -c vectorAdd.cu
+g++ -O3 vectorAdd.o -o vectorAdd -L/usr/local/cuda/lib64 -lcudart -lm
+./vectorAdd --nelem=10000 --tpb=16
+[Vector Addition of 10000 Elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 625 blocks of 16 threads
+Copy output data from the CUDA device to the host memory
+Elapsed Time: 0.2528 (ms)
+Test PASSED!!
+Done
+./vectorAdd --nelem=20000 --tpb=16
+[Vector Addition of 20000 Elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 1250 blocks of 16 threads
+Copy output data from the CUDA device to the host memory
+Elapsed Time: 0.3676 (ms)
+Test PASSED!!
+Done
+./vectorAdd --nelem=20000 --tpb=32
+[Vector Addition of 20000 Elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 625 blocks of 32 threads
+Copy output data from the CUDA device to the host memory
+Elapsed Time: 0.2528 (ms)
+Test PASSED!!
+Done
+./vectorAdd --nelem=30000 --tpb=16
+[Vector Addition of 30000 Elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 1875 blocks of 16 threads
+Copy output data from the CUDA device to the host memory
+Elapsed Time: 0.2910 (ms)
+Test PASSED!!
+Done
+./vectorAdd --nelem=30000 --tpb=32
+[Vector Addition of 30000 Elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 938 blocks of 32 threads
+Copy output data from the CUDA device to the host memory
+Elapsed Time: 0.2839 (ms)
+Test PASSED!!
+Done
+./vectorAdd --nelem=30000 --tpb=64
+[Vector Addition of 30000 Elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 469 blocks of 64 threads
+Copy output data from the CUDA device to the host memory
+Elapsed Time: 0.2874 (ms)
+Test PASSED!!
+Done
+./vectorAdd --nelem=40000 --tpb=16
+[Vector Addition of 40000 Elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 2500 blocks of 16 threads
+Copy output data from the CUDA device to the host memory
+Elapsed Time: 0.3393 (ms)
+Test PASSED!!
+Done
+./vectorAdd --nelem=40000 --tpb=32
+[Vector Addition of 40000 Elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 1250 blocks of 32 threads
+Copy output data from the CUDA device to the host memory
+Elapsed Time: 0.3358 (ms)
+Test PASSED!!
+Done
+./vectorAdd --nelem=40000 --tpb=64
+[Vector Addition of 40000 Elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 625 blocks of 64 threads
+Copy output data from the CUDA device to the host memory
+Elapsed Time: 0.3564 (ms)
+Test PASSED!!
+Done
+./vectorAdd --nelem=40000 --tpb=128
+[Vector Addition of 40000 Elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 313 blocks of 128 threads
+Copy output data from the CUDA device to the host memory
+Elapsed Time: 0.3257 (ms)
+Test PASSED!!
+Done
+./vectorAdd --nelem=50000 --tpb=16
+[Vector Addition of 50000 Elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 3125 blocks of 16 threads
+Copy output data from the CUDA device to the host memory
+Elapsed Time: 0.4047 (ms)
+Test PASSED!!
+Done
+./vectorAdd --nelem=50000 --tpb=32
+[Vector Addition of 50000 Elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 1563 blocks of 32 threads
+Copy output data from the CUDA device to the host memory
+Elapsed Time: 0.3707 (ms)
+Test PASSED!!
+Done
+./vectorAdd --nelem=50000 --tpb=64
+[Vector Addition of 50000 Elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 782 blocks of 64 threads
+Copy output data from the CUDA device to the host memory
+Elapsed Time: 0.3779 (ms)
+Test PASSED!!
+Done
+./vectorAdd --nelem=50000 --tpb=128
+[Vector Addition of 50000 Elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 391 blocks of 128 threads
+Copy output data from the CUDA device to the host memory
+Elapsed Time: 0.3700 (ms)
+Test PASSED!!
+Done
+./vectorAdd --nelem=50000 --tpb=256
+[Vector Addition of 50000 Elements]
+Copy input data from the host memory to the CUDA device
+CUDA kernel launch with 196 blocks of 256 threads
+Copy output data from the CUDA device to the host memory
+Elapsed Time: 0.3792 (ms)
+Test PASSED!!
+Done
+rm -f *.o vectorAdd

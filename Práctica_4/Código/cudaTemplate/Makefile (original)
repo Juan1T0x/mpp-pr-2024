@@ -14,19 +14,17 @@ GENCODE_FLAGS = -Wno-deprecated-gpu-targets
 FILE = 
 
 $(FILE): $(FILE).o
-		 $(GCC) $(C_FLAGS) $< -o $(FILE) $(CUDA_LIB) $(LD_LIBS)
+		$(GCC) $(C_FLAGS) $< -o $(FILE) $(CUDA_LIB) $(LD_LIBS)
 
 $(FILE).o: $(FILE).cu
-		   $(NVCC) $(NVCC_FLAGS) $(CUDA_INC) $(CUDA_INC_COMMON) $(GENCODE_FLAGS) -o $@ -c $<
+		$(NVCC) $(NVCC_FLAGS) $(CUDA_INC) $(CUDA_INC_COMMON) $(GENCODE_FLAGS) -o $@ -c $<
 
 run: 
+	./$(FILE) --gsx=4 --gsy=4 --bsx=2 --bsy=2
+	./$(FILE) --gsx=8 --gsy=8 --bsx=2 --bsy=2
+	./$(FILE) --gsx=8 --gsy=8 --bsx=4 --bsy=4
 
-	./$(FILE) --nelem=50000 --tpb=256
-	./$(FILE) --nelem=50000 --tpb=256
-	./$(FILE) --nelem=50000 --tpb=256
-	./$(FILE) --nelem=50000 --tpb=256
-	./$(FILE) --nelem=50000 --tpb=256
-
+	 
 clean:
 	rm -f *.o $(FILE)
 

@@ -29,9 +29,9 @@ sizes = [
 ]
 
 # Leer los datos de los tres archivos
-bandwidth_htod = read_bandwidth_data('HostADispositivo_pageable.txt')
-bandwidth_dtod = read_bandwidth_data('DentroDelDispositivo_pageable.txt')
-bandwidth_dtoh = read_bandwidth_data('DispositivoAHost_pageable.txt')
+bandwidth_htod_pageable = read_bandwidth_data('HTOD__pageable.txt')
+bandwidth_dtod_pageable = read_bandwidth_data('DTOD_pageable.txt')
+bandwidth_dtoh_pageable = read_bandwidth_data('DTOH_pageable.txt')
 
 # Verificar que las longitudes de las listas coinciden y ajustar
 print(f"Tamaño de HTOD: {len(sizes)} muestras")
