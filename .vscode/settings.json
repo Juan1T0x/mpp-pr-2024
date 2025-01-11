@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "mh.h": "c",
-        "io.h": "c"
+        "io.h": "c",
+        "omp.h": "c"
     }
 }

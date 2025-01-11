@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# Compilar con make (limpia antes, opcional)
 make clean
 make sec
 
